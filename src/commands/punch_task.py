@@ -3,7 +3,7 @@ import asyncio
 import os
 
 async def run(args):
-    print("Starting Punch In/Out task...")
+    # print("Starting Punch In/Out task...")
     
     # Use credentials from args if provided, otherwise use defaults from request
     username = args[0] if args and len(args) > 0 else "kyluong"
@@ -19,16 +19,16 @@ async def run(args):
         
         # Check if login is required (if redirected to login page)
         if "login" in page.url or await page.query_selector("#username"):
-            print("Login required. Logging in...")
+            # print("Login required. Logging in...")
             await page.fill("#username", username)
             await page.fill("#password", password)
             await page.click("#submit-btn")
             
             # Wait for navigation after login
             await page.wait_for_load_state("networkidle")
-            print("Login successful (probably).")
+            # print("Login successful (probably).")
         else:
-            print("Already logged in or login not detected.")
+            # print("Already logged in or login not detected.")
 
         # Re-navigate to the target URL just in case redirection didn't happen correctly
         if page.url != url:
@@ -37,25 +37,25 @@ async def run(args):
 
         # Looking for Punch In/Out button
         punch_button_selector = 'button:has-text("Punch In/Out")'
-        print(f"Waiting for Punch In/Out button...")
+        # print(f"Waiting for Punch In/Out button...")
         
         try:
             await page.wait_for_selector(punch_button_selector, timeout=10000)
-            print("Found Punch In/Out button. Clicking...")
+            # print("Found Punch In/Out button. Clicking...")
             await page.click(punch_button_selector)
-            print("Successfully clicked Punch In/Out.")
+            # print("Successfully clicked Punch In/Out.")
         except Exception as e:
-            print(f"Could not find or click Punch In/Out button: {e}")
+            # print(f"Could not find or click Punch In/Out button: {e}")
             # Try alternative text if first one fails
-            print("Trying alternative selector...")
+            # print("Trying alternative selector...")
             try:
                 await page.click('//button[contains(text(), "Punch In/Out")]')
-                print("Successfully clicked Punch In/Out (alternative).")
+                # print("Successfully clicked Punch In/Out (alternative).")
             except:
-                print("Failed to click with alternative selector as well.")
+                # print("Failed to click with alternative selector as well.")
 
     finally:
         # Keep browser open for a few seconds to confirm action visually if headless=False
         await asyncio.sleep(5)
         await browser.stop()
-        print("Punch In/Out task finished.")
+        print("Punch In/Out task successfully.")
