@@ -52,7 +52,7 @@ async def run(args):
                 await page.click('//button[contains(text(), "Punch In/Out")]')
                 # print("Successfully clicked Punch In/Out (alternative).")
             except:
-                # print("Failed to click with alternative selector as well.")
+                print("Failed to click with alternative selector as well.")
 
     finally:
         # Keep browser open for a few seconds to confirm action visually if headless=False
