@@ -14,7 +14,7 @@ async def run(args):
     browser = BaseBrowser(headless=True) # Set to True to run without opening browser window
     try:
         page = await browser.start()
-        print(f"Navigating to {url}...")
+        # print(f"Navigating to {url}...")
         await page.goto(url)
         
         # Check if login is required (if redirected to login page)
