@@ -28,7 +28,7 @@ async def run(args):
             await page.wait_for_load_state("networkidle")
             # print("Login successful (probably).")
         else:
-            # print("Already logged in or login not detected.")
+            print("Already logged in or login not detected.")
 
         # Re-navigate to the target URL just in case redirection didn't happen correctly
         if page.url != url:
